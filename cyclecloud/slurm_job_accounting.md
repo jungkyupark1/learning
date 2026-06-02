@@ -41,7 +41,7 @@ Cyclecloud UI > Cluster > (이미 생성된 경우) Edit > Advanced Settings > S
 
 스케줄러 노드에 ssh로 접속한 후 sudo 로 수행한다.
 
-#### 3-1. 설정 파일 변경: `/etc/slurm/accounting.conf`
+###### 설정 파일 변경: `/etc/slurm/accounting.conf`
 
 ```ini
 AccountingStorageType=accounting_storage/slurmdbd
@@ -49,7 +49,7 @@ AccountingStorageHost=<cluster-name>-scheduler
 AccountingStorageTRES=gres/gpu
 ```
 
-#### 3-2. 설정 파일 추가: `/etc/slurm/slurmdbd.conf`
+###### 설정 파일 추가: `/etc/slurm/slurmdbd.conf`
 
 ```ini
 #
@@ -84,20 +84,20 @@ StorageUser=<MySQL User> # <- 변경
 StorageParameters=SSL_CA=/etc/slurm/AzureCA.pem
 ```
 
-#### 3-3. SSL 인증서 추가: `/etc/slurm/AzureCA.pem`
+###### SSL 인증서 추가: `/etc/slurm/AzureCA.pem`
 
 ```bash
 wget https://cacerts.digicert.com/DigiCertGlobalRootG2.crt.pem -O /etc/slurm/AzureCA.pem
 ```
 
-#### 3-4. 파일 권한 설정
+###### 파일 권한 설정
 
 ```bash
 chown slurm:slurm /etc/slurm/slurmdbd.conf
 chmod 600 /etc/slurm/slurmdbd.conf
 ```
 
-#### 3-5. 프로세스 시작 및 재시작
+###### 프로세스 시작 및 재시작
 
 ```bash
 systemctl start slurmdbd

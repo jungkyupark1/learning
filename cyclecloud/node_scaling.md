@@ -9,13 +9,13 @@ CycleCloud Slurm 클러스터에서 HPC 노드의 수량을 조절
 - 기본적으로 Suspend time이 300초라 노드에 Job이 할당되지 않으면 5분내에 Scale in 된다.
 - CycleCloud UI의 `keep_alive` 옵션은 정상적으로 작동하지 않는다. (2025년 9월 기준)
 
-### 1-1. 파티션별 Scale-in 제외 설정: `/etc/slurm/slurm.conf`
+파티션별 Scale-in 제외 설정: `/etc/slurm/slurm.conf`
 
 ```ini
 SuspendExcParts=hpc   # hpc 파티션의 노드를 자동 축소 대상에서 제외
 ```
 
-### 1-2. 적용
+적용
 
 ```bash
 sudo scontrol reconfigure
@@ -26,17 +26,17 @@ sudo scontrol reconfigure
 - 이미 동작 중인 클러스터에선 UI에서 조정해도 반영되지 않는다. 하지만 나중에 있을 재시작을 고려하여 둘 다 반영하는 것을 권장한다.
 - Cyclecloud 8.6 이전에는 count 값이 Core 수 기준이었으나 8.7+부턴 인스턴스 수 기준이다.
 
-### 2.1. CycleCloud UI에서 수량 조정
+###### CycleCloud UI에서 수량 조정
 
 클러스터 > Edit > Required Settings > Auto-Scaling 에서 조정 후 Save
 
 ![1780271330270](image/node_scaling/1780271330270.png)
 
-### 2.2. 스케줄러 노드에서 수량 조정
+###### 스케줄러 노드에서 수량 조정
 
-2.2.1. 스케줄러 노드에 SSH 접속
+1) 스케줄러 노드에 SSH 접속
 
-2.2.2. `azure.conf` 파일 수정
+2) `azure.conf` 파일 수정
 
 ```bash
 sudo vi /sched/slurm-lab1/azure.conf
@@ -47,8 +47,35 @@ sudo vi /sched/slurm-lab1/azure.conf
 > PartitionName=hpc Nodes=slurm-lab1-hpc-**[1-2]** Default=YES DefMemPerCPU=1536 MaxTime=INFINITE State=UP
 > Nodename=slurm-lab1-hpc-**[1-2]** Feature=cloud STATE=CLOUD CPUs=2 ThreadsPerCore=1 RealMemory=3072
 
-2.2.3. 설정 반영
+3) 설정 반영
 
 ```bash
 sudo scontrol reconfigure
+```
+
+
+
+## 3. 노드 할당 및 회수
+
+`azslurm` 명령어로 노드를 할당 및 회수할 수 있다.
+
+현재 상태 확인:
+
+```bash
+sinfo
+```
+
+![1780366566685](image/node_scaling/1780366566685.png)
+
+노드 할당:
+
+```bash
+sudo -i
+azslurm resume --node-list cyclecloud-lab-hpc-1
+```
+
+노드 회수 (삭제):
+
+```bash
+azslurm suspend --node-list cyclecloud-lab-hpc-1
 ```

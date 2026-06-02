@@ -31,7 +31,7 @@ cycle_server fix_mismatched_attributes <클러스터명> --extra-attribute Cloud
 
 cluster-init은 버전 관리가 되므로 GitHub에 관리하거나, CycleCloud 서버에서 직접 수행하는 것을 추천한다.
 
-### 2.1. CycleCloud CLI 설치
+###### CycleCloud CLI 설치
 
 아래 링크를 참고한다.
 
@@ -43,7 +43,7 @@ https://learn.microsoft.com/en-us/azure/cyclecloud/how-to/install-cyclecloud-cli
 cyclecloud initialize
 ```
 
-### 2.2. 프로젝트 초기화
+###### 프로젝트 초기화
 
 ```bash
 mkdir ~/cluster-init && cd ~/cluster-init
@@ -62,10 +62,10 @@ cyclecloud project init <프로젝트명>
 │       └── cluster-init/
 │           ├── scripts/       # 실행할 셸 스크립트 (파일명 순서대로 실행)
 │           ├── files/         # 배포할 파일
-│           └── tests/       
+│           └── tests/     
 ```
 
-### 2.3. 버전 관리
+###### 버전 관리
 
 `project.ini` 파일에서 버전을 관리한다. 기존 프로젝트를 수정할 때는 버전을 올려서 배포한다.
 
@@ -77,7 +77,7 @@ vi <프로젝트명>/project.ini
 
 ![1780278838710](image/cluster-init/1780278838710.png)
 
-### 2.4. 스크립트 작성
+###### 스크립트 작성
 
 `specs/default/cluster-init/scripts/` 에 스크립트를 추가한다. 파일명 순서대로 실행되므로 `01-`, `02-` 등의 접두사를 붙이는 것을 추천한다.
 
@@ -89,7 +89,7 @@ yum install -y htop tmux
 
 ![1780278869208](image/cluster-init/1780278869208.png)
 
-### 2.5. 업로드
+###### 업로드
 
 cluster-init은 locker로 지정된 Blob Storage에 업로드된다.
 
@@ -113,9 +113,10 @@ cyclecloud project upload <locker명>
 
 ![1780278891029](image/cluster-init/1780278891029.png)
 
-### 2.6. 클러스터에 적용
+###### 클러스터에 적용
 
 CycleCloud > Slurm cluster > Edit > Advanced Settings > 원하는 파티션의 Browser
+
 > 생성한 프로젝트  버전 > `default` 선택 후 Select
 
 ![1780278913991](image/cluster-init/1780278913991.png)
