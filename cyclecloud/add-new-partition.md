@@ -21,10 +21,6 @@ sudo vi /etc/slurm/azure.conf
 PartitionName=hpc Nodes=cycle-lab-hpc-[1-3] Default=YES DefMemPerCPU=1536 MaxTime=INFINITE State=UP
 Nodename=cycle-lab-hpc-[1-3] Feature=cloud STATE=CLOUD CPUs=2 ThreadsPerCore=1 RealMemory=3072
 
-# 기존 htc 파티션 (주석 처리됨)
-#PartitionName=htc Nodes=cycle-lab-htc-[1-2] Default=NO DefMemPerCPU=1536 MaxTime=INFINITE State=UP
-#Nodename=cycle-lab-htc-[1-2] Feature=cloud STATE=CLOUD CPUs=2 ThreadsPerCore=1 RealMemory=3072
-
 # 추가한 new 파티션 (hpc 노드를 공유)
 PartitionName=new Nodes=cycle-lab-hpc-[1-3] Default=YES DefMemPerCPU=1536 MaxTime=INFINITE State=UP
 
