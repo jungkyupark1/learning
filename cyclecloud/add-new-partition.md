@@ -12,21 +12,6 @@ sudo vi /etc/slurm/azure.conf
 
 기존 HPC 파티션 설정을 복사한 뒤, `PartitionName`만 변경하여 추가한다.
 
-```ini
-# 기존 파티션
-PartitionName=hpc Nodes=cycle-lab-hpc-[1-3] Default=YES DefMemPerCPU=1536 MaxTime=INFINITE State=UP
-Nodename=cycle-lab-hpc-[1-3] Feature=cloud STATE=CLOUD CPUs=2 ThreadsPerCore=1 RealMemory=3072
-
-# 추가할 파티션 (PartitionName만 변경)
-PartitionName=new Nodes=cycle-lab-hpc-[1-3] Default=YES DefMemPerCPU=1536 MaxTime=INFINITE State=UP
-```
-
-설정 반영:
-
-```bash
-sudo scontrol reconfigure
-```
-
 적용 예시:
 
 ```ini
@@ -42,6 +27,9 @@ Nodename=cycle-lab-hpc-[1-3] Feature=cloud STATE=CLOUD CPUs=2 ThreadsPerCore=1 R
 
 # 추가한 new 파티션 (hpc 노드를 공유)
 PartitionName=new Nodes=cycle-lab-hpc-[1-3] Default=YES DefMemPerCPU=1536 MaxTime=INFINITE State=UP
+
+# 설정 반영
+sudo scontrol reconfigure
 ```
 
 ![1780279495319](image/add-new-partition/1780279495319.png)
